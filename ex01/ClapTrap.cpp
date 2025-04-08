@@ -6,18 +6,18 @@
 /*   By: qliso <qliso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:57:19 by qliso             #+#    #+#             */
-/*   Updated: 2025/03/13 10:30:17 by qliso            ###   ########.fr       */
+/*   Updated: 2025/04/08 12:54:37 by qliso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : ClapTrap("Undefined", 10, 10, 0)
+ClapTrap::ClapTrap(void) : _name("Undefined"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
     std::cout << "ClapTrap " << this->_name << " : Default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string const &name) : ClapTrap(name, 10, 10, 0)
+ClapTrap::ClapTrap(std::string const &name) :  _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
     std::cout << "ClapTrap " << this->_name << " : Constructor with name called" << std::endl;
 }

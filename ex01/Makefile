@@ -6,7 +6,7 @@
 #    By: qliso <qliso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/08 10:08:53 by qliso             #+#    #+#              #
-#    Updated: 2025/03/12 19:26:44 by qliso            ###   ########.fr        #
+#    Updated: 2025/04/08 12:50:45 by qliso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,12 @@ SRCS	=	$(addsuffix .cpp, \
 
 #Object files generated in the .objs/ directory
 OBJS_PATH	=	.objs/
-OBJS		=	$(SRCS:%c=$(OBJS_PATH)%.o)
+OBJS		=	$(SRCS:%.cpp=$(OBJS_PATH)%.o)
+DEPS		=	$(OBJS:.o=.d)
 
 #Compilation settings
 CC			=	c++
-CPPFLAGS	=	-Wall -Werror -Wextra -std=c++98
+CPPFLAGS	=	-Wall -Werror -Wextra -std=c++98 -MMD -MP -I.
 RM			= 	rm -rf
 
 # ################### #
@@ -46,8 +47,8 @@ $(NAME):	$(OBJS)
 		@echo "\033[1;32m$(NAME) compiled !\033[0m"
 
 # Rule to compile object files
-$(OBJS_PATH)%.o:	$(SRCS)%.c | $(OBJS_PATH)
-		$(CC) $(CPPFLAGS) -c $< .o $@
+$(OBJS_PATH)%.o:	%.cpp | $(OBJS_PATH)
+		$(CC) $(CPPFLAGS) -c $< -o $@
 
 # Rule to create the object directory
 $(OBJS_PATH):
@@ -62,5 +63,7 @@ fclean:	clean
 		@echo "\033[1;31m$(NAME) deleted !\033[0m"
 
 re:		fclean	all
+
+-include $(DEPS)
 
 .PHONY: all clean fclean re
